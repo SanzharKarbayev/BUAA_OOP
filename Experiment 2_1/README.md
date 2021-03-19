@@ -31,21 +31,23 @@
 * 构造车辆
 * 驱动车辆
 * 获取车辆价格
-public abstract class Vehicle {
-    private int id;
-    private int price;
 
-    Vehicle(int id,int price) {
-        this.id = id;
-        this.price = price;
+    public abstract class Vehicle {
+        
+        private int id;
+
+        private int price;
+        
+        Vehicle(int id,int price) {
+            this.id = id;
+            this.price = price;
+        }
+        
+        public abstract void run();
+        
+        public int getPrice() { return price; }
+        
     }
-
-    public abstract void run();
-
-    public int getPrice() {
-        return price;
-    }
-}
 
 
 可以看到，该抽象类约束了车辆的基本信息，所有的车辆都有 id 和 price，其子类都需要实现 run 方法，子类中的 getPrice 方法可以进行重写。
@@ -53,19 +55,23 @@ public abstract class Vehicle {
 功能：
 * 乘客上车
 * 乘客下车
-public interface Manned {
-    void getIn();
 
-    void getOff();
-}
+    public interface Manned {
+    
+        void getIn();
+    
+        void getOff();
+    }
 
 
 功能有关接口Engineered
 功能：
 * 功能性车辆工作
-public interface Engineered {
-    void work();
-}
+
+    public interface Engineered {
+       
+       void work();
+    }
 
 
 需要实现的内容：
@@ -83,46 +89,35 @@ public interface Engineered {
 ◦    maxSpeed<1000 maxSpeed≥1000    ◦    
 ◦        
     ◦       
-public void run() {
-    System.out.println("Wow, I can Run (maxSpeed:" + maxSpeed + ")!");
-}
 
-public int getPrice() {
-    // TODO
-}
+    public void run() {
+        System.out.println("Wow, I can Run (maxSpeed:" + maxSpeed + ")!");
+    }   
 
-
-
-
-
-
+    public int getPrice() {
+        // TODO
+    }
 
 洒水车类Sprinkler
 继承自 Vehicle，增加了属性 volume 表示洒水车总容量，需要按如下方式重写 run() 和 getPrice() 方法，并按如下方式实现 Engineered 接口中的 work() 方法，以实现以下功能：
 * 驱动洒水车，输出 Wow, I can Run and clear the road!
 * 获取洒水车价格，为车辆类基准价格的两倍，并输出 price is: 洒水车价格
 * 使洒水车工作，输出 Splashing! 洒水车总容量L water used!
-public void run() {
-    System.out.println("Wow, I can Run and clear the road!");
-}
 
-public int getPrice() {
-    // TODO
-}
+    public void run() {
+        
+        System.out.println("Wow, I can Run and clear the road!");
+    }
 
-public void work() {
-    System.out.println("Splashing!" + " " + this.volume + "L water used!");
-}
+    public int getPrice() {
 
+        // TODO
+    }
 
-
-
-
-
-
-
-
-
+    public void work() {
+        
+        System.out.println("Splashing!" + " " + this.volume + "L water used!");
+    }
 
 公共汽车类Bus
 继承自 Vehicle ，增加了属性 volume 表示公共汽车总油量，增加了属性 passenger 表示车上乘客数，需要按如下方式重写 run() 方法，并按如下方式实现 Engineered 接口中的 work() 方法和 Manned 接口中的 getIn() , getOff() 方法, 以实现以下功能：
@@ -130,103 +125,77 @@ public void work() {
 * 使公共汽车工作，输出 Working! 公共汽车总油量L diesel oil used!
 * 乘客上车（一人）。并输出 Wow! We have a new passenger!
 * 乘客下车。若车上没有乘客了，则直接输出 Wow! Only Driver! ; 否则先使一名乘客下车，然后输出 Wow! A passenger arrived at his or her destination!
-public void run() {
-    System.out.println("Wow, I can Run all day!");
-}
 
-public void work() {
-    System.out.println("Working!" + " " + this.volume + "L diesel oil used!");
-}
+    public void run() {
+        
+        System.out.println("Wow, I can Run all day!");
+    }
 
-public void getIn() {
-    passenger = passenger + 1;
-    System.out.println("Wow! We have a new passenger!");
-}
+    public void work() {
+    
+        System.out.println("Working!" + " " + this.volume + "L diesel oil used!");
+    }
 
-public void getOff() {
-    // TODO
-}
+    public void getIn() {
+        
+        passenger = passenger + 1;
+        System.out.println("Wow! We have a new passenger!");
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public void getOff() {
+    
+        // TODO
+    }
 
 工厂类Factory
-public class Factory {
-    public static Vehicle getNew(List<String> ops) {
-        String type = ops.get(1);
-        if ("Car".equals(type)) {
-            // TODO
-        } else if ("Sprinkler".equals(type)) {
-            // TODO
-        } else {
-            // TODO
+
+    public class Factory {
+        public static Vehicle getNew(List<String> ops) {
+            String type = ops.get(1);
+            if ("Car".equals(type)) {
+                // TODO
+            } else if ("Sprinkler".equals(type)) {
+                // TODO
+            } else {
+                // TODO
+            }
         }
     }
-}
-
-
-
-
-
-
-
-
-
-
-
 
 主类Main
-public class Main {
-    public static void main(String[] args) {
-        InputFactory in = new InputFactory();
-        Map<Integer, Vehicle> idToVec = new HashMap<>(1000);
-        while (in.hasNextOperation()) {
-            String opStr = in.getNewOperation();
-            List<String> ops = new ArrayList<>(Arrays.asList(opStr.split(" ")));
 
-            // for create
-            if ("create".equals(ops.get(0))) {
-                int id = Integer.parseInt(ops.get(2));
-                Vehicle vec = Factory.getNew(ops);
-                idToVec.put(id, vec);
-            }
-            // for call
-            else {
-                int id = Integer.parseInt(ops.get(1));
-                Vehicle vec = idToVec.get(id);
-                switch (ops.get(2)){
-                    case "run":
-                        vec.run();
-                        break;
-                    case "getPrice":
-                        // only consider the output statement in getPrice method without outputting the return value
-                        vec.getPrice();
-                        break;
-                    // TODO
+    public class Main {
+        public static void main(String[] args) {
+            InputFactory in = new InputFactory();
+            Map<Integer, Vehicle> idToVec = new HashMap<>(1000);
+            while (in.hasNextOperation()) {
+                String opStr = in.getNewOperation();
+                List<String> ops = new ArrayList<>(Arrays.asList(opStr.split(" ")));
+
+                // for create
+                if ("create".equals(ops.get(0))) {
+                    int id = Integer.parseInt(ops.get(2));
+                    Vehicle vec = Factory.getNew(ops);
+                    idToVec.put(id, vec);
+                }
+                // for call
+                else {
+                    int id = Integer.parseInt(ops.get(1));
+                    Vehicle vec = idToVec.get(id);
+                    switch (ops.get(2)){
+                        case "run":
+                            vec.run();
+                            break;
+                        case "getPrice":
+                            // only consider the output statement in getPrice method without outputting the return value
+                            vec.getPrice();
+                            break;
+                        // TODO
+                    }
                 }
             }
         }
-    }
-} 
-
-
-
-
-
-
-
+    } 
 
 注：继承实现结构与现实不符，如有雷同，纯属巧合
 输入格式：
@@ -244,29 +213,55 @@ public class Main {
 输出格式：
 对于第二种操作，需要调用其相关方法，对有输出的方法输出结果
 请注意输出语句中的空格格式。
+
 样例：
+
 stdin:
+
 create Car 1010 1000 60
+
 call 1010 run
+
 call 1010 getPrice
+
 create Sprinkler 111 2000 100
+
 create Bus 121 3000 120 
+
 call 111 work
+
 call 111 run
+
 call 111 getPrice
+
 call 121 run
+
 call 121 work
+
 call 121 getIn
+
 call 121 getOff
+
 call 121 getOff
+
 stdout:
+
 Wow, I can Run (maxSpeed:60)!
+
 price is: 1000
+
 Splashing! 100L water used!
+
 Wow, I can Run and clear the road!
+
 price is: 4000
+
 Wow, I can Run all day!
+
 Working! 120L diesel oil used!
+
 Wow! We have a new passenger!
+
 Wow! A passenger arrived at his or her destination!
+
 Wow! Only Driver!
