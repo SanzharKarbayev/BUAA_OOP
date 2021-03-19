@@ -81,15 +81,11 @@
 * 驱动小汽车，输出 Wow, I can Run (maxSpeed:最大速度)!
 * 获取小汽车价格，输出 price is: 小汽车价格
     * 小汽车价格 = 车辆类基准价格 + 因速度过大而造成的车辆磨损维修费
-    * 因速度过大而造成的车辆磨损维修费 = {
-◦    0    ◦    m a x S p e e d < 1000    
-◦    1000    ◦    m a x S p e e d ≥ 1000    
-    ◦      因速度过大而造成的车辆磨损维修费 = \begin{cases} 0 & maxSpeed<1000\\ 1000 & maxSpeed \geq 1000 \end{cases}   因速度过大而造成的车辆磨损维修费={
-◦    0 1000    ◦    
-◦        
-◦    maxSpeed<1000 maxSpeed≥1000    ◦    
-◦        
-    ◦       
+    * 因速度过大而造成的车辆磨损维修费:
+
+        if (maxSpeed < 1000) then 因速度过大而造成的车辆磨损维修费 = 0
+
+        else if (maxSpeed >= 1000 then 因速度过大而造成的车辆磨损维修费 = 1000
 ```
     public void run() {
         System.out.println("Wow, I can Run (maxSpeed:" + maxSpeed + ")!");
